@@ -1,0 +1,23 @@
+---
+- name: Configure server
+  hosts: ubuntu-dev
+  remote_user: vagrant
+  sudo: yes
+  roles:
+    - java
+    - docker
+    - git
+  tasks:
+  - name: install packages
+    apt: name={{ item }} update_cache=yes state=latest
+    with_items:
+      - mcrypt
+      - nginx
+      - php5-cli
+      - php5-curl
+      - php5-fpm
+      - php5-intl
+      - php5-json
+      - php5-mcrypt
+      - php5-sqlite
+      - sqlite3
