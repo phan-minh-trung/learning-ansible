@@ -1,0 +1,7 @@
+---
+- name: Configure Mysql server
+  hosts: ubuntu-dev
+  remote_user: vagrant
+  sudo: yes
+  roles:
+    - mysql

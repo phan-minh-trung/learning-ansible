@@ -57,6 +57,29 @@ PLAY RECAP *********************************************************************
 192.168.33.100             : ok=10   changed=8    unreachable=0    failed=0
 ```
 
+# install Mysql packages
+```command
+$ ansible-playbook provisioning/config-mysql.yml -i hosts
+
+TASK [mysql : Install the MySQL packages] **************************************
+changed: [192.168.33.100] => (item=[u'mysql-server-5.6', u'mysql-client-5.6', u'python-mysqldb', u'libmysqlclient-dev', u'php5-mysqlnd'])
+TASK [mysql : Update MySQL root password for all root accounts] ****************
+changed: [192.168.33.100] => (item=ubuntu-dev)
+changed: [192.168.33.100] => (item=127.0.0.1)
+changed: [192.168.33.100] => (item=::1)
+changed: [192.168.33.100] => (item=localhost)
+TASK [mysql : Copy the templates to their respestive destination] **************
+changed: [192.168.33.100] => (item={u'dest': u'/etc/mysql/my.cnf', u'src': u'my.cnf.j2'})
+changed: [192.168.33.100] => (item={u'dest': u'~/.my.cnf', u'src': u'root.cnf.j2', u'mode': u'600'})
+TASK [mysql : Ensure Anonymous user(s) are not in the database] ****************
+ok: [192.168.33.100] => (item=localhost)
+ok: [192.168.33.100] => (item=ubuntu-dev)
+TASK [mysql : Remove the test database] ****************************************
+ok: [192.168.33.100]
+RUNNING HANDLER [mysql : Restart MySQL] ****************************************
+changed: [192.168.33.100]
+```
+
 h3. install Jenkins role from remote repo
 
 # install Jenkins role
