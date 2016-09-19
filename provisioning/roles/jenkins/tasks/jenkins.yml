@@ -1,0 +1,42 @@
+---
+# - name: Add the maven3 PPA
+#   raw: add-apt-repository ppa:natecarlson/maven3 -y
+#   tags:
+#     - jenkins
+
+# - name: Install jenkins dependencies
+#   apt: pkg={{ item }} state=present update_cache=yes
+#   register: jdk_installed
+#   with_items: jenkins_dependencies
+#   tags:
+#     - jenkins
+
+# - name: Update java alternatives
+#   action: command update-java-alternatives -s java-1.7.0-openjdk-amd64
+#   when: jdk_installed.changed
+#   tags:
+#     - jenkins
+
+- name: Get jenkins pkg
+  action: apt_key url=http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key state=present
+  tags:
+    - jenkins
+
+- name: Add jenkins pkg
+  command: echo 'deb http://pkg.jenkins-ci.org/debian binary/' > /etc/apt/sources.list.d/jenkins.list
+  tags:
+    - jenkins
+
+- name: Install jenkins
+  apt: name=jenkins state=latest
+  register: jenkins_installed
+  tags:
+    - jenkins
+
+- name: Ensure jenkins is running
+  service:
+    name: jenkins
+    state: started
+
+- name: Start jenkins on boot
+  shell: chkconfig jenkins on

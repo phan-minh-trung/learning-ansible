@@ -1,0 +1,7 @@
+---
+- name: Install common packages
+  apt: pkg={{ item }} state=latest update_cache=yes
+  with_items: jenkins_preparation_items
+  tags:
+    - common
+    - jenkins

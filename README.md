@@ -80,6 +80,17 @@ RUNNING HANDLER [mysql : Restart MySQL] ****************************************
 changed: [192.168.33.100]
 ```
 
+## install Jenkins
+
+$ ansible-playbook provisioning/config-jenkins.yml -i hosts
+
+$ sudo /etc/init.d/jenkins restart
+
+Usage: /etc/init.d/jenkins {start|stop|status|restart|force-reload}
+
+account jenkins
+admin | 123456
+
 h3. install Jenkins role from remote repo
 
 # install Jenkins role

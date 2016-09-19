@@ -1,0 +1,11 @@
+---
+jenkins_preparation_items:
+  - python-software-properties
+  - python
+  - g++
+  - make
+  - git
+jenkins_dependencies:
+  - openjdk-7-jre
+  - openjdk-7-jdk
+  - maven3
